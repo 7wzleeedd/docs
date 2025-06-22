@@ -1,140 +1,114 @@
 ---
-title: 'Bleed Bot Setup'
-description: 'Get your enhanced Discord bot running in under 5 minutes'
+title: 'Bleed Bot Administrator Guide'
+description: 'Complete guide to setting up and managing Bleed Bot on your Discord server'
 ---
 
-## Development Setup
+## Getting Started
 
-Learn how to set up your bot locally and deploy it to production.
+### Invite the Bot to Your Server
+1. Use our [official invite link](https://discord.com/oauth2/authorize?client_id=YOUR_BOT_ID&permissions=8&scope=bot%20applications.commands)
+2. Select your server from the dropdown
+3. Grant the recommended permissions
 
-### Installation and Local Development
+### Initial Setup
+After inviting the bot:
+1. Create a "Bleed Bot" role and place it above other roles it needs to manage
+2. Use `/setup` to configure default channels and permissions
+3. Assign moderator roles with `/modrole set @Role`
+
+## Bot Configuration
 
 <AccordionGroup>
-  <Accordion icon="github" title="Clone the repository">
-    Get started by cloning the Bleed Bot repository to your local machine:
-    ```bash
-    git clone https://github.com/your-username/bleed-bot-enhanced.git
-    cd bleed-bot-enhanced
-    ```
+  <Accordion icon="shield-halved" title="Moderation Setup">
+    1. Set up your moderation team with `/moderators add @User`
+    2. Configure auto-mod with `/automod enable`
+    3. Set up logging with `/logchannel #channel`
+  </Accordion>
 
-    The repository contains all the necessary files for running your enhanced Discord bot.
+  <Accordion icon="bell" title="Notification Settings">
+    - `/welcome enable` - Turn on welcome messages
+    - `/welcome message` - Customize the welcome text
+    - `/welcome channel #channel` - Set where messages appear
   </Accordion>
-  
-  <Accordion icon="rectangle-terminal" title="Install dependencies">
-    Before running the bot, you'll need to install all required dependencies:
-    ```bash
-    npm install
-    ```
-    
-    This will install:
-    - discord.js (Discord API library)
-    - mongoose (MongoDB integration)
-    - express (API server)
-    - and other essential packages
-  </Accordion>
-  
-  <Accordion icon="robot" title="Configure your bot">
-    1. Copy the example config file:
-    ```bash
-    cp config/config.example.json config/config.json
-    ```
-    
-    2. Edit `config/config.json` with your:
-    - Discord bot token
-    - Client ID
-    - Test server ID
-    - Owner ID(s)
-    
-    3. For database functionality, configure MongoDB URI in the config file
-  </Accordion>
-  
-  <Accordion icon="rocket" title="Run the bot">
-    Start the bot in development mode (with auto-restart):
-    ```bash
-    npm run dev
-    ```
-    
-    Or for production:
-    ```bash
-    npm start
-    ```
+
+  <Accordion icon="sliders" title="Server Preferences">
+    - `/prefix set !` - Change command prefix
+    - `/language set english` - Set bot language
+    - `/timezone set EST` - Configure timezone for timestamps
   </Accordion>
 </AccordionGroup>
 
-### Deployment
+## Command Categories
 
-<AccordionGroup>
-  <Accordion icon="server" title="Hosting options">
-    You can host your Bleed Bot on:
-    - VPS (DigitalOcean, Linode, AWS EC2)
-    - Container services (Docker, Kubernetes)
-    - Serverless platforms (with adjustments)
-    - Specialized bot hosting (PebbleHost, etc.)
-    
-    <Note>
-      For 24/7 uptime, consider using process managers like PM2:
-      ```bash
-      npm install -g pm2
-      pm2 start src/bot/core/BotClient.js --name "bleed-bot"
-      ```
-    </Note>
-  </Accordion>
-  
-  <Accordion icon="shield-check" title="Production considerations">
-    - Use environment variables for sensitive data
-    - Set up proper logging
-    - Implement error tracking
-    - Configure automatic restarts
-    - Set up regular backups for database
-  </Accordion>
-</AccordionGroup>
+### 🛡️ Moderation Tools
+| Command | Description | Example |
+|---------|-------------|---------|
+| `/ban @user [reason]` | Permanently remove a user | `/ban @Spammer Reason: Repeated violations` |
+| `/mute @user 1h` | Temporarily mute a user | `/mute @NoisyUser 30m` |
+| `/warn @user [reason]` | Issue a formal warning | `/warn @RuleBreaker Reason: Offensive language` |
+| `/purge 50` | Clean up messages | `/purge 20` |
 
-## Bot Features
+### 🛠️ Server Management
+| Command | Description | Example |
+|---------|-------------|---------|
+| `/roleinfo @Role` | Show role details | `/roleinfo @Moderator` |
+| `/serverinfo` | Display server statistics | `/serverinfo` |
+| `/userinfo @User` | View member information | `/userinfo @NewMember` |
 
-Explore the powerful features of your enhanced Bleed Bot:
+### 🎉 Entertainment
+| Command | Description | Example |
+|---------|-------------|---------|
+| `/meme` | Share a random meme | `/meme` |
+| `/joke` | Tell a joke | `/joke` |
+| `/poll "Question"` | Create a quick vote | `/poll "Should we add more channels?"` |
+
+## Advanced Features
 
 <CardGroup>
-  <Card title="Moderation Commands" icon="shield-halved" href="/features/moderation">
-    Ban, kick, mute, and manage your server with advanced moderation tools
+  <Card title="Auto-Moderation" icon="robot">
+    Automatic filtering of bad words, spam, and malicious links
   </Card>
 
-  <Card title="Utility Features" icon="wrench" href="/features/utility">
-    Server info, user lookup, and other useful utilities
+  <Card title="Custom Commands" icon="terminal">
+    Create server-specific commands with `/customcmd create greet Hello {user}!`
   </Card>
 
-  <Card title="Fun Commands" icon="gamepad" href="/features/fun">
-    Games, jokes, and entertainment for your community
+  <Card title="Temporary Actions" icon="clock">
+    Set timed mutes, bans, and role assignments
   </Card>
 
-  <Card title="Admin Dashboard" icon="gauge" href="/features/dashboard">
-    Web-based control panel for managing your bot
+  <Card title="Detailed Logging" icon="file-lines">
+    Comprehensive moderation logs and server activity tracking
   </Card>
 </CardGroup>
 
-## Advanced Configuration
+## Troubleshooting
 
 <AccordionGroup>
-  <Accordion icon="plug" title="API Server">
-    The built-in API server allows remote management:
-    - Enable in `config.json`
-    - Configure port and secret key
-    - Access endpoints like `/api/commands`
+  <Accordion title="Bot isn't responding">
+    1. Check if the bot is online in your member list  
+    2. Verify you're using the correct prefix (`/` for slash commands)  
+    3. Ensure the bot has proper permissions
   </Accordion>
-  
-  <Accordion icon="database" title="Database Setup">
-    MongoDB integration provides:
-    - Persistent data storage
-    - User profiles
-    - Server settings
-    - Command statistics
-    
-    Enable in config and provide connection URI
+
+  <Accordion title="Commands not working">
+    - Try re-inviting the bot with proper permissions  
+    - Use `/sync` to refresh commands  
+    - Check our [support server](https://discord.gg/YOUR_INVITE) for outages
   </Accordion>
-  
-  <Accordion icon="puzzle-piece" title="Custom Commands">
-    Easily add new commands:
-    1. Create new file in `src/commands/[category]`
-    2. Follow the command template
-    3. The bot will auto-load your command
+
+  <Accordion title="Feature requests">
+    Suggest new features in our [feedback channel](https://discord.gg/YOUR_INVITE)  
+    or use `/suggest [your idea]`
   </Accordion>
 </AccordionGroup>
+
+## Premium Upgrade
+
+Unlock these exclusive features:
+- 24/7 priority support
+- Advanced analytics dashboard
+- Custom branding
+- Unlimited custom commands
+
+Upgrade with `/premium info` or visit our [website](https://bleedbot.example/premium)
